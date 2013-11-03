@@ -13,9 +13,9 @@ from willie.config import ConfigurationError
 
 def configure(config):
     """
-    These values are all found by signing up your bot at 
-    [api.twitter.com](http://api.twitter.com).
-    
+    These values are all found by signing up your bot at
+    [https://dev.twitter.com/apps/new](https://dev.twitter.com/apps/new).
+
     | [twitter] | example | purpose |
     | --------- | ------- | ------- |
     | consumer_key | 09d8c7b0987cAQc7fge09 | OAuth consumer key |
@@ -23,7 +23,7 @@ def configure(config):
     | access_token | 564018348-Alldf7s6598d76tgsadfo9asdf56uUf65aVgdsf6 | OAuth access token |
     | access_token_secret | asdfl7698596KIKJVGvJDcfcvcsfdy85hfddlku67 | OAuth access token secret |
     """
-    
+
     if config.option('Configure Twitter? (You will need to register on http://api.twitter.com)', False):
         config.interactive_add('twitter', 'consumer_key', 'Consumer key')
         config.interactive_add('twitter', 'consumer_secret', 'Consumer secret')
@@ -47,22 +47,22 @@ def format_thousands(integer):
 
 def gettweet(willie, trigger):
         """Show the last tweet by the given user"""
-        #try:
-        auth = tweepy.OAuthHandler(willie.config.twitter.consumer_key, willie.config.twitter.consumer_secret)
-        auth.set_access_token(willie.config.twitter.access_token, willie.config.twitter.access_token_secret)
-        api = tweepy.API(auth)
+        try:
+            auth = tweepy.OAuthHandler(willie.config.twitter.consumer_key, willie.config.twitter.consumer_secret)
+            auth.set_access_token(willie.config.twitter.access_token, willie.config.twitter.access_token_secret)
+            api = tweepy.API(auth)
 
-        twituser = trigger.group(2)
-        twituser = str(twituser)
+            twituser = trigger.group(2)
+            twituser = str(twituser)
 
-        statuses = api.user_timeline(twituser)
-        recent = [s.text for s in statuses][0]
-        # #willie.say("<" + twituser + "> " + unicode(recent))
-        if twituser[0] != '@':
-            twituser = '@' + twituser
-        willie.say(twituser + ": " + unicode(recent))
-        #except:
-        willie.reply("You have inputted an invalid user.")
+            statuses = api.user_timeline(twituser)
+            recent = [s.text for s in statuses][0]
+            # #willie.say("<" + twituser + "> " + unicode(recent))
+            if twituser[0] != '@':
+                twituser = '@' + twituser
+                willie.say(twituser + ": " + unicode(recent))
+        except:
+            willie.reply("You have inputted an invalid user.")
 gettweet.commands = ['twit']
 gettweet.priority = 'medium'
 gettweet.example = '.twit aplusk'
@@ -76,7 +76,8 @@ def f_info(willie, trigger):
 
         twituser = trigger.group(2)
         twituser = str(twituser)
-
+        if twituser[0] == '@':
+            twituser = twituser[1:]
         info = api.get_user(twituser)
         friendcount = format_thousands(info.friends_count)
         name = info.name
