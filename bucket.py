@@ -156,6 +156,7 @@ class bucket_runtime_data():
     inhibit_reply = ''  # Used to inhibit reply of an error message after teaching a factoid
     last_teach = {}
     last_lines = Ddict(dict)  # For quotes.
+    cmdprefix = '\.'
     inventory = None
     shut_up = []
     special_verbs = ['<reply>', '<directreply>', '<directaction>', '<action>', '<alias>']
@@ -178,6 +179,7 @@ def setup(willie):
         return
     #caching "Don't Know" replies
     rebuild_dont_know_cache(willie)
+    bucket_runtime_data.cmdprefix = willie.config.core.prefix
     bucket_runtime_data.inventory = Inventory()
     cur = db.cursor()
     cur.execute('SELECT * FROM bucket_items;')
@@ -580,7 +582,7 @@ def say_fact(willie, trigger):
         say_factoid(willie, fact, verb, tidbit, addressed)
     was[trigger.sender] = result
 
-say_fact.rule = ('(.*)')
+say_fact.rule = ('!(%s)(.*)' % bucket_runtime_data.cmdprefix)
 say_fact.priority = 'low'
 
 
