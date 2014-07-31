@@ -20,7 +20,7 @@ bucket_runtime_data.inhibit_reply = trigger.group(0)
 
 and make sure the priority of your callable is medium or higher.
 """
-import MySQLdb
+import pymysql
 import re
 from re import sub
 from random import randint, seed
@@ -58,7 +58,7 @@ def configure(config):
         config.interactive_add('bucket', 'inv_size', "Inventory size", '15')
 	config.interactive_add('bucket', 'fact_length', 'Minimum length of a factoid without being address', '6')
         if config.option('do you want to generate bucket tables and populate them with some default data?', True):
-            db = MySQLdb.connect(host=config.bucket.db_host,
+            db = pymysql.connect(host=config.bucket.db_host,
                                  user=config.bucket.db_user,
                                  passwd=config.bucket.db_pass,
                                  db=config.bucket.db_name)
@@ -106,7 +106,7 @@ class Inventory():
             cur = db.cursor()
             try:
                 cur.execute('INSERT INTO bucket_items (`channel`, `what`, `user`) VALUES (%s, %s, %s);', (channel, item.encode('utf8'), user))
-            except MySQLdb.IntegrityError, e:
+            except pymysql.IntegrityError, e:
                 willie.debug('bucket', 'IntegrityError in inventory code', 'warning')
                 willie.debug('bucket', str(e), 'warning')
             db.commit()
@@ -206,7 +206,7 @@ def add_fact(willie, trigger, fact, tidbit, verb, re, protected, mood, chance, s
     try:
         cur.execute('INSERT INTO bucket_facts (`fact`, `tidbit`, `verb`, `RE`, `protected`, `mood`, `chance`) VALUES (%s, %s, %s, %s, %s, %s, %s);', (fact, tidbit, verb, re, protected, mood, chance))
         db.commit()
-    except MySQLdb.IntegrityError:
+    except pymysql.IntegrityError:
         willie.say("I already had it that way!")
         return False
     finally:
@@ -632,7 +632,7 @@ get_inventory.priority = 'medium'
 
 
 def connect_db(willie):
-    return MySQLdb.connect(host=willie.config.bucket.db_host,
+    return pymysql.connect(host=willie.config.bucket.db_host,
                            user=willie.config.bucket.db_user,
                            passwd=willie.config.bucket.db_pass,
                            db=willie.config.bucket.db_name,
