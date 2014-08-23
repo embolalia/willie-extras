@@ -7,6 +7,7 @@ http://willie.dftba.net
 
 import random
 from willie.module import commands
+from willie.tools import Nick
 
 
 @commands('slap', 'slaps')
@@ -17,6 +18,9 @@ def slap(willie, trigger):
         return
     if text[1] == 'me' or text[1] == 'myself':
         text[1] = trigger.nick
+    if Nick(text[1]) not in willie.privileges[trigger.sender.lower()]:
+        willie.say("You can't slap someone who isn't here!")
+        return
     if text[1] == willie.nick:
         if (trigger.nick not in willie.config.admins):
             text[1] = trigger.nick
