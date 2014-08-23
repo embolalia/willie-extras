@@ -6,6 +6,7 @@ http://willie.dftba.net
 """
 
 import random
+import re
 from willie.module import commands
 from willie.tools import Nick
 
@@ -14,6 +15,10 @@ from willie.tools import Nick
 def slap(willie, trigger):
     """.slap <target> - Slaps <target>"""
     text = trigger.group().split()
+    try:
+        text[1] = re.sub(r"\x1f|\x02|\x12|\x0f|\x16|\x03(?:\d{1,2}(?:,\d{1,2})?)?", '', text[1])
+    except IndexError:
+        return
     if len(text) < 2 or text[1].startswith('#'):
         return
     if text[1] == 'me' or text[1] == 'myself':
@@ -25,9 +30,9 @@ def slap(willie, trigger):
         if (trigger.nick not in willie.config.admins):
             text[1] = trigger.nick
         else:
-            text[1] = 'itself'
+            text[1] = 'herself'
     if text[1] in willie.config.admins:
         if (trigger.nick not in willie.config.admins):
             text[1] = trigger.nick
-    verb = random.choice(('slaps', 'kicks', 'destroys', 'annihilates', 'punches', 'roundhouse kicks', 'pwns', 'owns'))
+    verb = random.choice(('slaps', 'kicks', 'destroys', 'annihilates', 'punches', 'roundhouse kicks', 'pwns', 'owns', 'backstabs'))
     willie.write(['PRIVMSG', trigger.sender, ' :\x01ACTION', verb, text[1], '\x01'])

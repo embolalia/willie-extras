@@ -28,6 +28,7 @@ import willie.web as web
 import os
 from collections import deque
 from willie.tools import Ddict
+from willie.module import *
 seed()
 
 
@@ -217,6 +218,8 @@ def add_fact(willie, trigger, fact, tidbit, verb, re, protected, mood, chance, s
     return True
 
 
+@rule('$nick' '(.*?) (is|are) (.*)')
+@priority('high')
 def teach_is_are(willie, trigger):
     """Teaches a is b and a are b"""
     fact = trigger.group(1)
@@ -233,10 +236,10 @@ def teach_is_are(willie, trigger):
             return  # do NOT teach is are if the trigger is similar to "Lemon, Who is the king of the derps? <reply> I am!" (contains both is|are and a special verb.
 
     add_fact(willie, trigger, fact, tidbit, verb, re, protected, mood, chance)
-teach_is_are.rule = ('$nick', '(.*?) (is|are) (.*)')
-teach_is_are.priority = 'high'
 
 
+@rule('$nick' '(.*?) (<\S+>) (.*)')
+@priority('high')
 def teach_verb(willie, trigger):
     """Teaches verbs/ambiguous reply"""
     bucket_runtime_data.inhibit_reply = trigger
@@ -271,10 +274,10 @@ def teach_verb(willie, trigger):
             willie.say('Okay, %s' % trigger.nick)
     if fact.lower() == 'don\'t know':
         rebuild_dont_know_cache(willie)
-teach_verb.rule = ('$nick', '(.*?) (<\S+>) (.*)')
-teach_verb.priority = 'high'
 
 
+@rule('$nick' 'remember (.*?) (.*)')
+@priority('high')
 def save_quote(willie, trigger):
     """Saves a quote"""
     bucket_runtime_data.inhibit_reply = trigger
@@ -305,10 +308,10 @@ def save_quote(willie, trigger):
                 willie.reply("Remembered that %s <reply> %s" % (fact, tidbit))
             return
     willie.say("Sorry, I don't remember what %s said about %s" % (quotee, word))
-save_quote.rule = ('$nick', 'remember (.*?) (.*)')
-save_quote.priority = 'high'
 
 
+@rule('$nick' 'delete #(.*)')
+@priority('high')
 def delete_factoid(willie, trigger):
     """Deletes a factoid"""
     bucket_runtime_data.inhibit_reply = trigger
@@ -342,10 +345,9 @@ def delete_factoid(willie, trigger):
     fact, tidbit, verb = parse_factoid(line)
     willie.say("Okay, %s, forgot that %s %s %s" % (trigger.nick, fact, verb, tidbit))
 
-delete_factoid.rule = ('$nick', 'delete #(.*)')
-delete_factoid.priority = 'high'
 
-
+@rule('$nick' 'undo last')
+@priority('high')
 def undo_teach(willie, trigger):
     """Undo teaching factoid"""
     was = bucket_runtime_data.what_was_that
@@ -378,28 +380,29 @@ def undo_teach(willie, trigger):
         db.close()
     willie.say("Okay, %s. Forgot that %s %s %s" % (trigger.nick, fact, verb, tidbit))
     del last_teach[trigger.sender]
-undo_teach.rule = ('$nick', 'undo last')
-undo_teach.priority = 'high'
 
 
+@rule('(?:(?:^\001ACTION (?:gives|hands) $nickname)(?: an?)?|^$nickname. (?:take|have) (this|my|your|an?|.*)) (.*)')
+@rule('(?:(?:^\001ACTION (?:gives|hands) (?:(this|my|your|an?|.+) )?(.*)) )to $nickname')
+@priority('medium')
 def inv_give(willie, trigger):
     ''' Called when someone gives us an item '''
     bucket_runtime_data.inhibit_reply = trigger
     was = bucket_runtime_data.what_was_that
     inventory = bucket_runtime_data.inventory
-    item = trigger.group(6)
+    item = trigger.group(2)
     if item.endswith('\001'):
         item = item[:-1]
     item = item.strip()
 
-    if trigger.group(5) == 'my':
+    if trigger.group(1) == 'my':
         item = '%s\'s %s' % (trigger.nick, item)
-    elif trigger.group(5) == 'your':
+    elif trigger.group(1) == 'your':
         item = '%s\'s %s' % (willie.nick, item)
-    elif trigger.group(5) != 'this' and trigger.group(5) is not None:
-        item = '%s %s' % (trigger.group(5), item)
+    elif trigger.group(1) != 'this' and trigger.group(1) is not None:
+        item = '%s %s' % (trigger.group(1), item)
         item = re.sub(r'^me ', trigger.nick + ' ', item, re.IGNORECASE)
-    if trigger.group(3) is not '':
+    if trigger.group(1) is not '':
         item = re.sub(r'^(his|her|its|their) ', '%s\'s ' % trigger.nick, item, re.IGNORECASE)
 
     item = item.strip()
@@ -427,33 +430,34 @@ def inv_give(willie, trigger):
     say_factoid(willie, fact, verb, tidbit, True)
     was = result
     return
-inv_give.rule = ('((^\001ACTION (gives|hands) $nickname)|^$nickname. (take|have) (this|my|your|.*)) (.*)')
-inv_give.priority = 'medium'
 
 
+@rule('^\001ACTION (?:steals|takes) $nickname\'s (.*)')
+@rule('^\001ACTION (?:steals|takes) (?:an? )?(.*) from $nickname')
+@priority('medium')
 def inv_steal(willie, trigger):
     inventory = bucket_runtime_data.inventory
-    item = trigger.group(2)
+    item = trigger.group(1)
     bucket_runtime_data.inhibit_reply = trigger
     if item.endswith('\001'):
         item = item[:-1]
-    if (inventory.remove(item)):
+    if (inventory.remove(item)) or (inventory.remove('a %s' % item)) or (inventory.remove('an %s' % item)):
         willie.say('Hey! Give it back, it\'s mine!')
     else:
         willie.say('But I don\'t have any %s' % item)
-inv_steal.rule = ('^\001ACTION (steals|takes) $nickname\'s (.*)')
-inv_steal.priority = 'medium'
 
 
+@rule('$nick' 'you need new things(.*|)')
+@priority('medium')
 def inv_populate(willie, trigger):
     bucket_runtime_data.inhibit_reply = trigger
     inventory = bucket_runtime_data.inventory
-    willie.action('drops all his inventory and picks up random things instead')
+    willie.action('drops all her inventory and picks up random things instead')
     inventory.populate(willie)
-inv_populate.rule = ('$nick', 'you need new things(.*|)')
-inv_populate.priority = 'medium'
 
 
+@rule('(.*)')
+@priority('low')
 def say_fact(willie, trigger):
     """Response, if needed"""
     query = trigger.group(0)
@@ -469,6 +473,10 @@ def say_fact(willie, trigger):
     if addressed:
         search_term = search_term[(len(willie.nick) + 1):].strip()  # Remove our nickname from the search term
     search_term = remove_punctuation(search_term).strip()
+    try:    # strip mIRC control codes
+        search_term = re.sub(r"\x1f|\x02|\x12|\x0f|\x16|\x03(?:\d{1,2}(?:,\d{1,2})?)?", '', search_term)
+    except IndexError:
+        return
 
     fact_length =  willie.config.bucket.fact_length or 6
     if len(query) < int(fact_length) and not addressed:
@@ -580,9 +588,6 @@ def say_fact(willie, trigger):
         say_factoid(willie, fact, verb, tidbit, addressed)
     was[trigger.sender] = result
 
-say_fact.rule = ('(.*)')
-say_fact.priority = 'low'
-
 
 def pick_result(results, willie):
     try:
@@ -613,6 +618,8 @@ def pick_result(results, willie):
         return None
 
 
+@rule('$nick' 'inventory')
+@priority('medium')
 def get_inventory(willie, trigger):
     ''' get a human readable list of the bucket inventory '''
 
@@ -626,9 +633,6 @@ def get_inventory(willie, trigger):
     readable_item_list = ', '.join(inventory.current_items)
 
     willie.action('is carrying ' + readable_item_list)
-
-get_inventory.rule = ('$nick', 'inventory')
-get_inventory.priority = 'medium'
 
 
 def connect_db(willie):
@@ -687,6 +691,8 @@ def say_factoid(willie, fact, verb, tidbit, addressed):
         willie.action(tidbit)
 
 
+@rule('(.*)')
+@priority('medium')
 def remember(willie, trigger):
     ''' Remember last 10 lines of each user, to use in the quote function '''
     memory = bucket_runtime_data.last_lines
@@ -699,8 +705,6 @@ def remember(willie, trigger):
         fifo.pop()
     fifo.appendleft([trigger.group(0), trigger.nick])
     memory[trigger.sender][trigger.nick.lower()] = fifo
-remember.rule = ('(.*)')
-remember.priority = 'medium'
 
 
 def parse_factoid(result):
@@ -708,4 +712,5 @@ def parse_factoid(result):
 
 if __name__ == '__main__':
     print __doc__.strip()
+
 
