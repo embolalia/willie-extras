@@ -101,6 +101,16 @@ def gettweet(willie, trigger, found_match=None):
                     statusnum = int(parts[1]) - 1
                 status = api.user_timeline(twituser)[statusnum]
         twituser = '@' + status.user.screen_name
+        try:
+            for url in status.entities['urls']:
+                status.text = status.text.replace(url['url'], url['expanded_url'])
+        except KeyError:
+            pass
+        try:
+            for media in status.entities['media']:
+                status.text = status.text.replace(media['url'], media['media_url'])
+        except KeyError:
+            pass
         willie.say(twituser + ": " + unescape(unicode(status.text)) + ' <' + tweet_url(status) + '>')
     except:
         willie.reply("You have inputted an invalid user.")
