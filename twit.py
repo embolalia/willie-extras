@@ -9,10 +9,15 @@ http://willie.dftba.net
 import tweepy
 import time
 import re
-import htmlentitydefs
 from willie.config import ConfigurationError
 from willie import tools
 from willie.module import rule
+try:
+    import html
+except ImportError:
+    import HTMLParser
+    html = HTMLParser.HTMLParser()
+unescape = html.unescape
 
 def configure(config):
     """
@@ -55,29 +60,6 @@ def format_thousands(integer):
 def tweet_url(status):
     """Returns a URL to Twitter for the given status object"""
     return 'https://twitter.com/' + status.user.screen_name + '/status/' + status.id_str
-
-def unescape(text):
-    """Returns the input with HTML entities decoded to characters"""
-    """from http://effbot.org/zone/re-sub.htm#unescape-html"""
-    def fixup(m):
-        text = m.group(0)
-        if text[:2] == "&#":
-            # character reference
-            try:
-                if text[:3] == "&#x":
-                    return unichr(int(text[3:-1], 16))
-                else:
-                    return unichr(int(text[2:-1]))
-            except ValueError:
-                pass
-        else:
-            # named entity
-            try:
-                text = unichr(htmlentitydefs.name2codepoint[text[1:-1]])
-            except KeyError:
-                pass
-        return text # leave as is
-    return re.sub("&#?\w+;", fixup, text)
 
 @rule('.*twitter.com\/(\S*)\/status\/([\d]+).*')
 def gettweet(willie, trigger, found_match=None):
