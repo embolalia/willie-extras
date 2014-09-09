@@ -22,24 +22,24 @@ def configure(config):
             config.interactive_add('ai', 'frequency', 
                                    "How often do you want Willie to participate in the conversation? (0-10)",
                                    3)
-            config.save()     
-        
-        
+            config.save()
+
+
 def setup(bot):
     # Set value to 3 if not configured
     if bot.config.ai and bot.config.ai.frequency:
         bot.memory['frequency'] = bot.config.ai.frequency
     else:
         bot.memory['frequency'] = 3
-        
+
     random.seed()
-        
-        
+
+
 def decide(bot):
     return 0 < random.random() < float(bot.memory['frequency']) / 10
 
 
-@rule('(?i)$nickname\:\s+(bye|goodbye|seeya|cya|ttyl|g2g|gnight|goodnight)')
+@rule('(?i)$nickname\:\s+(bye|goodbye|gtg|seeya|cya|ttyl|g2g|gnight|goodnight)')
 @rate(30)
 def goodbye(bot, trigger):
     byemsg = random.choice(('Bye', 'Goodbye', 'Seeya', 'Auf Wiedersehen', 'Au revoir', 'Ttyl'))
@@ -94,38 +94,47 @@ def ping_reply(bot, trigger):
         bot.reply("PONG")
 
 
-@rule('(?i)i.*love.*(willie|$nickname).*')
+@rule('(?i)((willie|$nickname)\[,:]\s*i.*love|i.*love.*(willie|$nickname).*)')
 @rate(30)
 def love(bot, trigger):
     bot.reply("I love you too.")
 
 
-@rule('(?i)(willie|$nickname)\:\si.*love.*')
+@rule('\s*([Xx]+[dD]+|([Hh]+[Aa]+)+)')
 @rate(30)
-def love2(bot, trigger):
-    bot.reply("I love you too.")
-
-
-@rule('(?i)(willie|$nickname)\,\si.*love.*')
-@rate(30)
-def love3(bot, trigger):
-    bot.reply("I love you too.")
+def xd(bot, trigger):
+    respond = ['xDDDDD', 'XD', 'XDDDD', 'haha']
+    randtime = random.uniform(0, 3)
+    time.sleep(randtime)
+    bot.say(random.choice(respond))
 
 
 @rule('(haha!?|lol!?)$')
 @priority('high')
 def f_lol(bot, trigger):
     if decide(bot):
-        respond = ['haha', 'lol', 'rofl']
+        respond = ['haha', 'lol', 'rofl', 'hm', 'hmmmm...']
         randtime = random.uniform(0, 9)
         time.sleep(randtime)
         bot.say(random.choice(respond))
 
 
-@rule('(g2g!?|bye!?)$')
+@rule('^\s*(([Bb]+([Yy]+[Ee]+(\s*[Bb]+[Yy]+[Ee]+)?)|[Ss]+[Ee]{2,}\s*[Yy]+[Aa]+|[Oo]+[Uu]+)|cya|ttyl|[Gg](2[Gg]|[Tt][Gg]|([Oo]{2,}[Dd]+\s*([Bb]+[Yy]+[Ee]+|[Nn]+[Ii]+[Gg]+[Hh]+[Tt]+)))\s*(!|~|.)*)$')
 @priority('high')
 def f_bye(bot, trigger):
-    respond = ['bye!', 'bye', 'see ya', 'see ya!']
+    set1 = ['bye', 'byebye', 'see you', 'see ya', 'Good bye', 'have a nice day']
+    set2 = ['~', '~~~', '!', ' :)', ':D', '(Y)', '(y)', ':P', ':-D', ';)', '(wave)', '(flee)']
+    respond = [ str1 + ' ' + str2 for str1 in set1 for str2 in set2]
+    bot.say(random.choice(respond))
+
+@rule('^\s*(([Hh]+([AaEe]+[Ll]+[Oo]+|[Ii]+)+\s*(all)?)|[Yy]+[Oo]+|[Aa]+[Ll]+|[Aa]nybody)\s*(!+|\?+|~+|.+|[:;][)DPp]+)*$')
+@priority('high')
+def f_hello(bot, trigger):
+    randtime = random.uniform(0, 7)
+    time.sleep(randtime)
+    set1 = ['yo', 'hey', 'hi', 'Hi', 'hello', 'Hello', 'Welcome']
+    set2 = ['~', '~~~', '!', '?', ' :)', ':D', 'xD', '(Y)', '(y)', ':P', ':-D', ';)', ', How do you do?']
+    respond = [ str1 + ' ' + str2 for str1 in set1 for str2 in set2]
     bot.say(random.choice(respond))
 
 
@@ -133,7 +142,7 @@ def f_bye(bot, trigger):
 @priority('high')
 def f_heh(bot, trigger):
     if decide(bot):
-        respond = ['hm']
+        respond = ['hm', 'hmmmmmm...', 'heh?']
         randtime = random.uniform(0, 7)
         time.sleep(randtime)
         bot.say(random.choice(respond))
@@ -147,9 +156,14 @@ def f_really(bot, trigger):
     bot.say(str(trigger.nick) + ": " + "Yes, really.")
 
 
-@rule('^(wb|welcome\sback).*$nickname\s')
+@rule('^\s*[Ww]([Bb]|elcome\s*back)[\s:,].*$nickname')
 def wb(bot, trigger):
-    bot.reply("Thank you!")
+    str1 = ['Thank you', 'thanks']
+    str2 = ['!', ':)', ':D']
+    respond = [ str1 + ' ' + str2 for str1 in set1 for str2 in set2]
+    randtime = random.uniform(0, 7)
+    time.sleep(randtime)
+    bot.reply(random.choice(respond))
 
 
 if __name__ == '__main__':
