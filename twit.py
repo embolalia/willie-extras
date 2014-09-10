@@ -18,6 +18,9 @@ except ImportError:
     import HTMLParser
     html = HTMLParser.HTMLParser()
 unescape = html.unescape
+import sys
+if sys.version_info.major < 3:
+    str = unicode
 
 def configure(config):
     """
@@ -93,7 +96,7 @@ def gettweet(willie, trigger, found_match=None):
                 status.text = status.text.replace(url['url'], url['expanded_url'])
         except KeyError:
             pass
-        willie.say(twituser + ": " + unescape(unicode(status.text)) + ' <' + tweet_url(status) + '>')
+        willie.say(twituser + ": " + unescape(str(status.text)) + ' <' + tweet_url(status) + '>')
     except:
         willie.reply("You have inputted an invalid user.")
 gettweet.commands = ['twit']
