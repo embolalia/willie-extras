@@ -5,6 +5,19 @@ Copyright 2012, Edward Powell, http://embolalia.net
 Copyright © 2012-2014, Elad Alfassa <elad@fedoraproject.org>
 Licensed under the Eiffel Forum License 2.
 
+----------
+This code is terrible and horrid.
+
+
+This module is dead, and is not maintained.
+It has many issues, but nobody is going to fix any of them.
+Before using it make sure you fully understand that.
+
+Pull requests for bucket are unlikely to be reviewed.
+
+Proceed on your own risk.
+----------
+
 https://github.com/embolalia/willie
 
 This module is built without using code from the original bucket, but using the same DB table format for factoids.
@@ -51,7 +64,7 @@ def configure(config):
     | inv_size | 15 | The maximum amount of items that Willie can keep. |
     | fact_length | 6 | Minimum length of a factoid without being address |
     """
-    if config.option('Configure Bucket factiod DB', False):
+    if config.option('Configure Bucket (not recommended)', False):
         config.interactive_add('bucket', 'db_host', "Enter the MySQL hostname", 'localhost')
         config.interactive_add('bucket', 'db_user', "Enter the MySQL username")
         config.interactive_add('bucket', 'db_pass', "Enter the user's password")
@@ -84,19 +97,16 @@ def configure(config):
 
 class Inventory():
     ''' Everything inventory related '''
-    avilable_items = []
-    current_items = deque([])
+    available_items = set()
+    current_items = deque()
 
     def add_random(self):
         ''' Adds a random item to the inventory'''
-        item = self.avilable_items[randint(0, len(self.avilable_items) - 1)].strip()
-        if item in self.current_items:
-            try:
-                return self.add_random()
-            except RuntimeError:
-                #Too much recursion, this can only mean all avilable_items are in current_items. Bananas.
-                self.current_items.appendleft('bananas!')
-                return 'bananas!'
+        not_in_inv = list(self.available_items - set(self.current_items))
+        if len(not_in_inv) > 0:
+            item = not_in_inv[randint(0, len(not_in_inv) - 1)].strip()
+        else:
+            item = "bananas!"
         self.current_items.appendleft(item)
         return item
 
@@ -104,7 +114,7 @@ class Inventory():
         ''' Adds an item to the inventory'''
         dropped = False
         item = item.strip()
-        if item.lower() not in [x.lower() for x in self.avilable_items]:
+        if item.lower() not in [x.lower() for x in self.available_items]:
             db = connect_db(bot)
             cur = db.cursor()
             try:
@@ -114,7 +124,7 @@ class Inventory():
                 bot.debug('bucket', str(e), 'warning')
             db.commit()
             db.close()
-            self.avilable_items.append(item)
+            self.available_items.add(item)
         if item in self.current_items:
             return '%ERROR% duplicate item %ERROR%'
         if len(self.current_items) >= int(bot.config.bucket.inv_size):
@@ -131,7 +141,7 @@ class Inventory():
 
     def populate(self, bot):
         ''' Clears the inventory and fill it with random items '''
-        self.current_items = deque([])
+        self.current_items.clear()
         while (len(self.current_items) < int(bot.config.bucket.inv_size)):
             self.add_random()
 
@@ -154,10 +164,10 @@ class Inventory():
 
     def destroy(self, item, bot):
         ''' Deletes an item from the database '''
-        if item not in self.avilable_items:
+        if item not in self.available_items:
             return False
         self.remove(item)  # First, remove it from the inventory if present
-        self.avilable_items.remove(item)  # remove it from the cache
+        self.available_items.remove(item)  # remove it from the cache
         db = connect_db(bot)
         cur = db.cursor()
         cur.execute('DELETE FROM bucket_items WHERE what=%s',
@@ -203,7 +213,7 @@ def setup(bot):
     cur.execute('SELECT * FROM bucket_items')
     items = cur.fetchall()
     for item in items:
-        bucket_runtime_data.inventory.avilable_items.append(item[2])
+        bucket_runtime_data.inventory.available_items.add(item[2])
 
     # Create friends table if it doesn't exist
     warnings.filterwarnings('ignore')
@@ -448,19 +458,27 @@ def inv_give(bot, trigger):
         item = re.sub(r'^(his|her|its|their) ', '%s\'s ' % trigger.nick, item, re.IGNORECASE)
 
     item = item.strip()
-    dropped = inventory.add(item.strip(), trigger.nick, trigger.sender, bot)
+    friendly = _get_friendly(bot, trigger.nick)
+    if friendly is not None:
+        friendly = friendly[0]
+    else:
+        friendly = 0
     db = connect_db(bot)
     cur = db.cursor()
     search_term = ''
-    if not dropped:
-        # Query for 'takes item'
-        search_term = 'takes item'
-    elif dropped == '%ERROR% duplicate item %ERROR%':
-        # Query for 'duplicate item'
-        search_term = 'duplicate item'
+    if friendly < -3 and randint(0, 2) > 0:
+        search_term = 'refuse to take item'
     else:
-        # Query for 'pickup full'
-        search_term = 'pickup full'
+        dropped = inventory.add(item.strip(), trigger.nick, trigger.sender, bot)
+        if not dropped:
+            # Query for 'takes item'
+            search_term = 'takes item'
+        elif dropped == '%ERROR% duplicate item %ERROR%':
+            # Query for 'duplicate item'
+            search_term = 'duplicate item'
+        else:
+            # Query for 'pickup full'
+            search_term = 'pickup full'
     cur.execute('SELECT * FROM bucket_facts WHERE fact = %s', [search_term])
     results = cur.fetchall()
     db.close()
@@ -471,7 +489,8 @@ def inv_give(bot, trigger):
 
     say_factoid(bot, fact, verb, tidbit, True)
     was = result
-    _friend_increase(bot, trigger)
+    if search_term != 'refuse to take item':
+        _friend_increase(bot, trigger)
     return
 
 
@@ -513,11 +532,16 @@ def say_fact(bot, trigger):
     if query.startswith('\001ACTION'):
         query = query[len('\001ACTION '):]
 
-    addressed = query.lower().startswith(bot.nick.lower())  # Check if our nick was mentioned
+    # Check if our nick was mentioned
+    addressed = query.lower().startswith(bot.nick.lower())
+    addressed |= query.lower().endswith(bot.nick.lower())
     search_term = query.lower().strip()
 
-    if addressed:
-        search_term = search_term[(len(bot.nick) + 1):].strip()  # Remove our nickname from the search term
+    # Remove our nickname from the search term
+    if search_term.startswith(bot.nick.lower()):
+        search_term = search_term[(len(bot.nick) + 1):].strip()
+    elif search_term.endswith(bot.nick.lower()):
+        search_term = search_term[:-len(bot.nick)].strip()
     search_term = remove_punctuation(search_term).strip()
     try:    # strip mIRC control codes
         search_term = re.sub(r"\x1f|\x02|\x12|\x0f|\x16|\x03(?:\d{1,2}(?:,\d{1,2})?)?", '', search_term)
@@ -638,6 +662,7 @@ def say_fact(bot, trigger):
 
 
 def pick_result(results, bot):
+    search_term = ''
     try:
         if len(results) == 1:
             result = results[0]
@@ -665,6 +690,7 @@ def pick_result(results, bot):
     except RuntimeError, e:
         bot.debug('bucket', 'RutimeError in pick_result', 'warning')
         bot.debug('bucket', e, 'warning')
+        bot.debug('bucket', 'search term was: %s' % search_term, 'warning')
         return None
 
 
@@ -786,9 +812,9 @@ def handle_join(bot, trigger):
         return _add_friend(bot, trigger)
     friendly, lastseen = ret
     if time.time() > lastseen + (15*60):
-        greet = randint(1, 2+friendly**3)
+        greet = 25+(((friendly*5)/25)**3)
         time.sleep(randint(1, 5) + random())  # Jitter to appear human
-        if greet > 24:
+        if randint(0, 100) < greet:
             db = connect_db(bot)
             cur = db.cursor()
             cur.execute('SELECT * FROM bucket_facts WHERE fact = "greet on join"')
