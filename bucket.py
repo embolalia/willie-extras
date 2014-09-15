@@ -532,6 +532,11 @@ def say_fact(bot, trigger):
     if query.startswith('\001ACTION'):
         query = query[len('\001ACTION '):]
 
+    """ignore commands handled by other modules"""
+    cmdprefix = re.compile("^%s" % bot.config.core.prefix)
+    if cmdprefix.search(query) is not None:
+        return
+
     # Check if our nick was mentioned
     addressed = query.lower().startswith(bot.nick.lower())
     addressed |= query.lower().endswith(bot.nick.lower())
