@@ -181,6 +181,7 @@ class bucket_runtime_data():
     inhibit_reply = ''  # Used to inhibit reply of an error message after teaching a factoid
     last_teach = {}
     last_lines = Ddict(dict)  # For quotes.
+    cmdprefix = '\.'
     inventory = None
     shut_up = []
     special_verbs = ['<reply>',
@@ -208,6 +209,7 @@ def setup(bot):
         print 'Error connecting to the bucket database.'
         raise
         return
+    bucket_runtime_data.cmdprefix = bot.config.core.prefix
     bucket_runtime_data.inventory = Inventory()
     cur = db.cursor()
     cur.execute('SELECT * FROM bucket_items')
@@ -519,7 +521,7 @@ def inv_populate(bot, trigger):
     inventory.populate(bot)
 
 
-@rule('(.*)')
+@rule('!(%s)(.*)' % bucket_runtime_data.cmdprefix)
 @priority('low')
 def say_fact(bot, trigger):
     """Response, if needed"""
