@@ -816,7 +816,8 @@ def handle_join(bot, trigger):
     if ret is None:
         return _add_friend(bot, trigger)
     friendly, lastseen = ret
-    if time.time() > lastseen + (15*60):
+    shut_up = bucket_runtime_data.shut_up
+    if time.time() > lastseen + (15*60) and trigger.sender not in shut_up:
         greet = 25+(((friendly*5)/25)**3)
         time.sleep(randint(1, 5) + random())  # Jitter to appear human
         if randint(0, 100) < greet:
