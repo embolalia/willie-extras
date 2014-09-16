@@ -818,7 +818,7 @@ def handle_join(bot, trigger):
     friendly, lastseen = ret
     shut_up = bucket_runtime_data.shut_up
     if time.time() > lastseen + (15*60) and trigger.sender not in shut_up:
-        greet = 25+(((friendly*5)/25)**3)
+        greet = 25+(((friendly*5)/25)**2)
         time.sleep(randint(1, 5) + random())  # Jitter to appear human
         if randint(0, 100) < greet:
             db = connect_db(bot)
