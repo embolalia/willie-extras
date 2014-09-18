@@ -499,7 +499,7 @@ def inv_give(bot, trigger):
 @priority('medium')
 def inv_steal(bot, trigger):
     inventory = bucket_runtime_data.inventory
-    item = trigger.group(1)
+    item = trigger.group(2)
     bucket_runtime_data.inhibit_reply = trigger
     if item.endswith('\001'):
         item = item[:-1]
