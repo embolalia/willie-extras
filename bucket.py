@@ -807,8 +807,8 @@ def parse_factoid(result):
     return result[1], result[2], result[3]
 
 
-@willie.module.rule('.*')
-@willie.module.event('JOIN')
+#@willie.module.rule('.*')
+#@willie.module.event('JOIN')
 def handle_join(bot, trigger):
     if trigger.nick == bot.nick:
         return
