@@ -96,7 +96,8 @@ def gettweet(willie, trigger, found_match=None):
                 status.text = status.text.replace(url['url'], url['expanded_url'])
         except KeyError:
             pass
-        willie.say(twituser + ": " + unescape(str(status.text)) + ' <' + tweet_url(status) + '>')
+        status.text = str(status.text).replace("\n", u" \u23CE ")
+        willie.say(twituser + ": " + unescape(status.text) + ' <' + tweet_url(status) + '>')
     except:
         willie.reply("You have inputted an invalid user.")
 gettweet.commands = ['twit']
