@@ -77,6 +77,7 @@ def gettweet(willie, trigger, found_match=None):
                     statusnum = int(parts[1]) - 1
                 status = api.user_timeline(twituser)[statusnum]
         twituser = '@' + status.user.screen_name
+        status.text = str(status.text).replace("\n", u" \u23CE ")
         willie.say(twituser + ": " + unicode(status.text) + ' <' + tweet_url(status) + '>')
     except:
         willie.reply("You have inputted an invalid user.")
