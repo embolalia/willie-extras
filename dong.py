@@ -61,10 +61,10 @@ class NSFW_Info():
     MAX_LEVEL=4
     def __init__(self):
         ''' set a default level '''
-        self.timeout = time.time() + 3600
+        self.timeout = time.time() + 120
         self.level = 2
     def increase(self):
-        if self.level < NSFW_Info.MAX_LEVEL and time.time() - self.timeout < 0:
+        if self.level < NSFW_Info.MAX_LEVEL and time.time() - self.timeout > 0:
             self.level += 1
             self.timeout = time.time() + 3600
             return True
@@ -271,6 +271,7 @@ def dongbot(bot, trigger):
     bot.say("Creating shaft size comparisons...")
     if not trigger.sender in TIMEOUTS:
         TIMEOUTS[trigger.sender]=0
+    if not trigger.sender in NSFW_LEVELS:
         NSFW_LEVELS[trigger.sender] = NSFW_Info()
     if trigger.sender.startswith('#'):
         if time.time() - TIMEOUTS[trigger.sender] < 0:
@@ -322,7 +323,7 @@ def nsfwdongs(bot, trigger):
     elif (commands[0] == 'less' and len(commands) > 1):
         if commands[1] in NSFW_LEVELS:
             if NSFW_LEVELS[commands[1]].decrease():
-                bot.say("Rudeness sillently lowered in %s"%commands[1])
+                bot.say("Rudeness silently lowered in %s"%commands[1])
             else:
                 bot.say("That's as nice as it gets, sorry")
         else:
@@ -330,4 +331,28 @@ def nsfwdongs(bot, trigger):
     else:
         bot.say("Sorry. Didn't get that")
 
+@willie.module.commands('donglevel')
+def donglevel(bot, trigger):
+    """ Check the nsfw level of the current room """
+    if trigger.sender in NSFW_LEVELS:
+        bot.say("%s is at rudeness level %d/%d"%(trigger.sender,
+            NSFW_LEVELS[trigger.sender].level,NSFW_Info.MAX_LEVEL))
+    else:
+        bot.say("Bot not donging in chat '%s'."%trigger.sender)
 
+
+
+@willie.module.commands('dongwhen','dongwait')
+def dongwait(bot, trigger):
+    """ Check how long we must wait for the next donging """
+    if trigger.sender not in TIMEOUTS:
+        bot.say("Get started any time!")
+        return
+    if time.time() - TIMEOUTS[trigger.sender] > 0:
+        bot.say("Any time you like.")
+        return
+    wait = int(TIMEOUTS[trigger.sender] - time.time())/60
+    if wait == 1 or wait == 0:
+        bot.say ("You can in 1 minute")
+    else:
+        bot.say ("You can in %d minutes"%(wait))
