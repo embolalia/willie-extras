@@ -126,7 +126,8 @@ class DongObject():
             output += self.jizz.shape
         output += self.dongspecials
         output += ' '
-        output += self.lengthspecial
+        if len(self.lengthspecial) > 0:
+            output += self.lengthspecial + ' '
         output += self.get_specials()
         return output
     def __repr__(self):
