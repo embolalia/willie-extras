@@ -86,10 +86,10 @@ class DongObject():
         self.fore = wfore.random()
         self.tip = wtip.random()
         self.jizz = wjizz.random()
-        self.has_jizz = random.random > 0.90
-        self.jizz_size = 0
-        if len(self.jizz.shape) > 0 and self.has_jizz:
-            self.jizz_size = random.randint(0,6)
+        #self.has_jizz = random.random > 0.90
+        #self.jizz_size = 0
+        #if len(self.jizz.shape) > 0 and self.has_jizz:
+        #    self.jizz_size = random.randint(0,6)
         self.dongspecials = ''
         self.dongspecialtext = ''
         self.lengthspecial = ''
@@ -122,8 +122,8 @@ class DongObject():
         output += self.get_shaft()
         output += self.fore.shape
         output += self.tip.shape
-        for _ in range(0,self.jizz_size):
-            output += self.jizz.shape
+        #for _ in range(0,self.jizz_size):
+        #    output += self.jizz.shape
         output += self.dongspecials
         output += ' '
         if len(self.lengthspecial) > 0:
@@ -229,6 +229,7 @@ class Level4(BaseLevel):
         self.shaft.append(Component('~','COMPRESSION',1))
         self.shaft.append(Component('/\\','ACCORDION',1))
         self.shaft.append(Component('^','STUDDED',1))
+        self.shaft.append(Component(')','RIBBED',1))
         self.fore = [Component('','',100)]
         self.fore.append(Component(')','CLIPPED',1))
         self.fore.append(Component('|||','TURTLENECK',1))
