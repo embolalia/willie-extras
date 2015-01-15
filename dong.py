@@ -86,10 +86,10 @@ class DongObject():
         self.fore = wfore.random()
         self.tip = wtip.random()
         self.jizz = wjizz.random()
-        #self.has_jizz = random.random > 0.90
-        #self.jizz_size = 0
-        #if len(self.jizz.shape) > 0 and self.has_jizz:
-        #    self.jizz_size = random.randint(0,6)
+        self.has_jizz = random.random > 0.90
+        self.jizz_size = 0
+        if len(self.jizz.shape) > 0 and self.has_jizz:
+            self.jizz_size = random.randint(0,6)
         self.dongspecials = ''
         self.dongspecialtext = ''
         self.lengthspecial = ''
@@ -122,8 +122,8 @@ class DongObject():
         output += self.get_shaft()
         output += self.fore.shape
         output += self.tip.shape
-        #for _ in range(0,self.jizz_size):
-        #    output += self.jizz.shape
+        for _ in range(0,self.jizz_size):
+            output += self.jizz.shape
         output += self.dongspecials
         output += ' '
         if len(self.lengthspecial) > 0:
@@ -239,23 +239,20 @@ class Level4(BaseLevel):
         self.tip.append(Component('Q','LEAKER',5))
         self.tip.append(Component('-','UNICORN',1))
         self.jizz = [Component('','',20)]
-        self.jizz.append(Component('~','',1))
-        self.jizz.append(Component('~~','',1))
-        self.jizz.append(Component('~~~','',1))
-        self.jizz.append(Component('~~~~','',1))
-        self.jizz.append(Component('~~~~~','',1))
-        self.jizz.append(Component('~~~~~~','BIG SHOOTER',1))
         self.build_tables()
 
     def get_stack(self):
         d = DongObject(self.wnut, self.wshaft, self.wfore, self.wtip,
                 self.wjizz)
+        d.lengthspecial = ''
+        if d.jizz_size >= 6:
+            d.lengthspecial = 'BIG SHOOTER '
         if d.shaft_size >= 12:
-            d.lengthspecial = 'MASTER CYLINDER '
+            d.lengthspecial += 'MASTER CYLINDER '
         elif d.shaft_size == 1:
-            d.lengthspecial = 'SHORTSTACK '
+            d.lengthspecial += 'SHORTSTACK '
         elif d.shaft_size == 0:
-            d.lengthspecial = 'NUB'
+            d.lengthspecial += 'NUB'
         if d.jizz_size == 0 and random.random() > 0.99:
             # copy the shaft but not nut
             d.dongspecials = d.get_shaft() + d.nut.shape
