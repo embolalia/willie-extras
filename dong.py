@@ -190,9 +190,9 @@ class Level2(BaseLevel):
         d = DongObject(self.wnut, self.wshaft, self.wfore, self.wtip,
                 self.wjizz)
         if d.shaft_size >= 12:
-            d.lengthspecial = 'MASTER CYLINDER '
+            d.lengthspecial = 'MASTER CYLINDER'
         elif d.shaft_size == 1:
-            d.lengthspecial = 'SHORTSTACK '
+            d.lengthspecial = 'SHORTSTACK'
         return d
 class Level3(BaseLevel):
     def __init__(self):
@@ -209,9 +209,9 @@ class Level3(BaseLevel):
         d = DongObject(self.wnut, self.wshaft, self.wfore, self.wtip,
                 self.wjizz)
         if d.shaft_size >= 12:
-            d.lengthspecial = 'MASTER CYLINDER '
+            d.lengthspecial = 'MASTER CYLINDER'
         elif d.shaft_size == 1:
-            d.lengthspecial = 'SHORTSTACK '
+            d.lengthspecial = 'SHORTSTACK'
         elif d.shaft_size == 0:
             d.lengthspecial = 'NUB'
         return d
@@ -239,20 +239,23 @@ class Level4(BaseLevel):
         self.tip.append(Component('Q','LEAKER',5))
         self.tip.append(Component('-','UNICORN',1))
         self.jizz = [Component('','',20)]
+        self.jizz = [Component('~','',1)]
         self.build_tables()
 
     def get_stack(self):
+        # TODO: add all the modifers to an array, and do a ' '.join(array)
         d = DongObject(self.wnut, self.wshaft, self.wfore, self.wtip,
                 self.wjizz)
         d.lengthspecial = ''
         if d.jizz_size >= 6:
             d.lengthspecial = 'BIG SHOOTER '
         if d.shaft_size >= 12:
-            d.lengthspecial += 'MASTER CYLINDER '
+            d.lengthspecial += 'MASTER CYLINDER'
         elif d.shaft_size == 1:
-            d.lengthspecial += 'SHORTSTACK '
+            d.lengthspecial += 'SHORTSTACK'
         elif d.shaft_size == 0:
             d.lengthspecial += 'NUB'
+
         if d.jizz_size == 0 and random.random() > 0.99:
             # copy the shaft but not nut
             d.dongspecials = d.get_shaft() + d.nut.shape
