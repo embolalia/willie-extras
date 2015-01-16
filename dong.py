@@ -16,34 +16,15 @@ class Walkerrandom:
         The weights (a list or tuple or iterable) can be in any order;
         they need not sum to 1.
     """
-    n = self.n = len(weights)
+    self.n = sum(weights)
     self.keys = keys
-    sumw = sum(weights)
-    prob = [w * n / sumw for w in weights]  # av 1
-    inx = [-1] * n
-    short = [j for j, p in enumerate( prob ) if p < 1]
-    long = [j for j, p in enumerate( prob ) if p > 1]
-    while short and long:
-        j = short.pop()
-        k = long[-1]
-        # assert prob[j] <= 1 <= prob[k]
-        inx[j] = k
-        prob[k] -= (1 - prob[j])  # -= residual weight
-        if prob[k] < 1:
-            short.append( k )
-            long.pop()
-    self.prob = prob
-    self.inx = inx
+    self.weightedlist = []
+    for i in range(0, len(weights)):
+        for _ in range(0,weights[i]):
+            self.weightedlist.append(keys[i])
   def random( self ):
-    """ each call -> a random int or key with the given probability
-        fast: 1 randint(), 1 random.uniform(), table lookup
-    """
-    u = random.uniform( 0, 1 )
     j = random.randint( 0, self.n - 1 )  # or low bits of u
-    randint = j if u <= self.prob[j] \
-        else self.inx[j]
-    return self.keys[randint] if self.keys \
-        else randint
+    return self.weightedlist[j]
 
 
 class Component():
@@ -62,7 +43,7 @@ class NSFW_Info():
     def __init__(self):
         ''' set a default level '''
         self.timeout = time.time() + 120
-        self.level = 2
+        self.level = 3
     def increase(self):
         if self.level < NSFW_Info.MAX_LEVEL and time.time() - self.timeout > 0:
             self.level += 1
@@ -196,10 +177,10 @@ class Level2(BaseLevel):
         return d
 class Level3(BaseLevel):
     def __init__(self):
-        self.nut = [Component('8','',10)]
+        self.nut = [Component('8','',20)]
         self.nut.append(Component(':','WINTERIZED',1))
         self.nut.append(Component('o','ARMSTRONG\'D',1))
-        self.shaft = [Component('=','',10)]
+        self.shaft = [Component('=','',20)]
         self.shaft.append(Component('-','NOODLE',1))
         self.fore = [Component('','',1)]
         self.tip = [Component('D','',1)]
@@ -218,13 +199,13 @@ class Level3(BaseLevel):
 
 class Level4(BaseLevel):
     def __init__(self):
-        self.nut = [Component('8','',10)]
+        self.nut = [Component('8','',50)]
         self.nut.append(Component(':','WINTERIZED',1))
         self.nut.append(Component('o','ARMSTRONG\'D',1))
         self.nut.append(Component('.','WINTERIZE\'D ARMSTRONG\'D',1))
         self.nut.append(Component('B','GRAPEFRUITS',1))
         self.nut.append(Component(' ','VASECTOMY\'D',1))
-        self.shaft = [Component('=','',10)]
+        self.shaft = [Component('=','',50)]
         self.shaft.append(Component('-','NOODLE',1))
         self.shaft.append(Component('~','COMPRESSION',1))
         self.shaft.append(Component('/\\','ACCORDION',1))
@@ -234,10 +215,10 @@ class Level4(BaseLevel):
         self.fore.append(Component(')','CLIPPED',1))
         self.fore.append(Component('|||','TURTLENECK',1))
         self.tip = [Component('D','',1000)]
-        self.tip.append(Component('3','DICKBUTT',5))
+        self.tip.append(Component('-','UNICORN',1))
         self.tip.append(Component('G','PEIRCED',5))
         self.tip.append(Component('Q','LEAKER',5))
-        self.tip.append(Component('-','UNICORN',1))
+        self.tip.append(Component('3','DICKBUTT',5))
         self.jizz = [Component('','',20)]
         self.jizz = [Component('~','',1)]
         self.build_tables()
