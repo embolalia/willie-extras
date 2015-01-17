@@ -70,29 +70,16 @@ class DongObject():
         self.has_jizz = random.random > 0.90
         self.jizz_size = 0
         if len(self.jizz.shape) > 0 and self.has_jizz:
-            self.jizz_size = random.randint(0,6)
+            self.jizz_size = random.randint(1,6)
         self.dongspecials = ''
-        self.dongspecialtext = ''
-        self.lengthspecial = ''
-    def add_dongspecial(self,special, text):
-        self.dongspecials = special
-        self.dongspecialtext = text
+        self.dongspecialtext = []
+        for part in [self.nut, self.shaft, self.fore, self.tip, self.jizz]:
+            if part.text is not None and len(part.text) > 0:
+                self.dongspecialtext.append(part.text)
+    def add_special(self,text):
+        self.dongspecialtext.append(text)
     def get_specials(self):
-        output = ''
-        if self.nut.text is not None and self.nut.text != '':
-            output += self.nut.text + ' '
-        if self.shaft.text is not None and self.shaft.text != '':
-            output += self.shaft.text + ' '
-        if self.fore.text is not None and self.fore.text != '':
-            output += self.fore.text + ' '
-        if self.tip.text is not None and self.tip.text != '':
-            output += self.tip.text + ' '
-        if self.jizz.text is not None and self.jizz.text != '':
-            output += self.jizz.text + ' '
-        if (self.dongspecialtext is not None and
-          self.dongspecialtext != ''):
-            output += self.dongspecialtext + ' '
-        return output
+        return ' '.join(self.dongspecialtext)
     def get_shaft(self):
         output = ''
         for _ in range(0,self.shaft_size):
@@ -107,8 +94,6 @@ class DongObject():
             output += self.jizz.shape
         output += self.dongspecials
         output += ' '
-        if len(self.lengthspecial) > 0:
-            output += self.lengthspecial + ' '
         output += self.get_specials()
         return output
     def __repr__(self):
@@ -171,9 +156,9 @@ class Level2(BaseLevel):
         d = DongObject(self.wnut, self.wshaft, self.wfore, self.wtip,
                 self.wjizz)
         if d.shaft_size >= 12:
-            d.lengthspecial = 'MASTER CYLINDER'
+            d.add_special('MASTER CYLINDER')
         elif d.shaft_size == 1:
-            d.lengthspecial = 'SHORTSTACK'
+            d.add_special('SHORTSTACK')
         return d
 class Level3(BaseLevel):
     def __init__(self):
@@ -190,11 +175,11 @@ class Level3(BaseLevel):
         d = DongObject(self.wnut, self.wshaft, self.wfore, self.wtip,
                 self.wjizz)
         if d.shaft_size >= 12:
-            d.lengthspecial = 'MASTER CYLINDER'
+            d.add_special('MASTER CYLINDER')
         elif d.shaft_size == 1:
-            d.lengthspecial = 'SHORTSTACK'
+            d.add_special('SHORTSTACK')
         elif d.shaft_size == 0:
-            d.lengthspecial = 'NUB'
+            d.add_special('NUB')
         return d
 
 class Level4(BaseLevel):
@@ -219,31 +204,31 @@ class Level4(BaseLevel):
         self.tip.append(Component('G','PEIRCED',5))
         self.tip.append(Component('Q','LEAKER',5))
         self.tip.append(Component('3','DICKBUTT',5))
-        self.jizz = [Component('','',20)]
-        self.jizz = [Component('~','',1)]
+        self.jizz = [Component('','',200)]
+        self.jizz.append(Component('~','',10))
+        self.jizz.append(Component('~','SCHNOODLE',1))
+        self.jizz.append(Component('~ ','SPUTTER',1))
         self.build_tables()
 
     def get_stack(self):
-        # TODO: add all the modifers to an array, and do a ' '.join(array)
         d = DongObject(self.wnut, self.wshaft, self.wfore, self.wtip,
                 self.wjizz)
-        d.lengthspecial = ''
         if d.jizz_size >= 6:
-            d.lengthspecial = 'BIG SHOOTER '
+            d.add_special('BIG SHOOTER')
         if d.shaft_size >= 12:
-            d.lengthspecial += 'MASTER CYLINDER'
+            d.add_special('MASTER CYLINDER')
         elif d.shaft_size == 1:
-            d.lengthspecial += 'SHORTSTACK'
+            d.add_special('SHORTSTACK')
         elif d.shaft_size == 0:
-            d.lengthspecial += 'NUB'
+            d.add_special('NUB')
 
         if d.jizz_size == 0 and random.random() > 0.99:
             # copy the shaft but not nut
             d.dongspecials = d.get_shaft() + d.nut.shape
-            d.dongspecialtext = "DOCKING!"
+            d.add_special("DOCKING!")
         elif random.random() > 0.99:
             d.dongspecials = 'C' + d.get_shaft() + d.nut.shape
-            d.dongspecialtext = "SWORDFIGHT!"
+            d.add_special("SWORDFIGHT!")
         return d
 
 LEVELS = [ Level0(), Level1(), Level2(), Level3(), Level4() ]
