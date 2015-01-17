@@ -5,10 +5,12 @@ import time
 CONFIG={ 'timeout': {'start':60,'end':120} }
 TIMEOUTS = {}
 NSFW_LEVELS = {}
+LASTVOTE= {}
 
 class Walkerrandom:
   """ Walker's alias method for random objects with different probablities
       Taken from http://code.activestate.com/recipes/576564-walkers-alias-method-for-random-objects-with-diffe/
+      Simplified - adjusted to accept only integers for weights.
   """
 
   def __init__( self, weights, keys=None ):
@@ -279,7 +281,7 @@ def nsfwdongs(bot, trigger):
         return
     elif trigger.group(2) == 'more' and trigger.sender in NSFW_LEVELS:
         if ( NSFW_LEVELS[trigger.sender].increase() ):
-            bot.say("PREPARE FOR RUDNESS")
+            bot.say("PREPARE FOR RUDENESS")
         else:
             bot.say("No can do")
     elif (trigger.group(2) == 'less' and trigger.sender.startswith('#') and
@@ -312,6 +314,9 @@ def donglevel(bot, trigger):
 
 @willie.module.commands('dongwhen','dongwait')
 def dongwait(bot, trigger):
+    printwait(bot,trigger)
+
+def printwait(bot, trigger):
     """ Check how long we must wait for the next donging """
     if trigger.sender not in TIMEOUTS:
         bot.say("Get started any time!")
@@ -324,3 +329,35 @@ def dongwait(bot, trigger):
         bot.say ("You can in 1 minute")
     else:
         bot.say ("You can in %d minutes"%(wait))
+
+
+
+@willie.module.commands('dongvote')
+def dongvote(bot, trigger):
+    """ Remove time from a dong timeout. Works for both the inter-dong wait,
+        and for cockblocks. Can only be used hourly per user - global timeout.
+    """
+    if (trigger.nick in LASTVOTE and
+            time.time() - LASTVOTE[trigger.nick] < 3600):
+        bot.say("Cool it, %s."%trigger.nick)
+    else:
+        # don't bother checking if it's in a timeout state.
+        # if someone wants to waste their vote, allow it.
+        LASTVOTE[trigger.nick] = time.time()
+        TIMEOUTS[trigger.sender] = TIMEOUTS[trigger.sender] - 600
+        printwait(bot,trigger)
+
+@willie.module.commands('donghelp')
+def donghelp(bot, trigger):
+    """ Information on how to work the dong module """
+    bot.say(".dong will create one dong for every user in the room.")
+    bot.say("Increase or decrease the rudeness of the dongs using")
+    bot.say(".donglevel more - must be in the chat")
+    bot.say(".donglevel less - can be in a private chat or in the room.")
+    bot.say("You can only increase the rudeness once an hour.")
+    bot.say("You can stop the dongs for an hour or two by using .cockblock,")
+    bot.say("but you must be in the chat you want to block.")
+    bot.say("You can reduce the cockblock by using .dongvote, which removes")
+    bot.say("time from any kind of wait, whether it be the usual break time")
+    bot.say("between .dong, or a cockblock. This can only be used once an")
+    bot.say("hour by any given user.")
