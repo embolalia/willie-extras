@@ -1,0 +1,250 @@
+tt0111161 The Shawshank Redemption
+tt0068646 The Godfather
+tt0071562 The Godfather: Part II
+tt0468569 The Dark Knight
+tt0110912 Pulp Fiction
+tt0060196 Il buono, il brutto, il cattivo.
+tt0050083 12 Angry Men
+tt0108052 Schindler's List
+tt0167260 The Lord of the Rings: The Return of the King
+tt0137523 Fight Club
+tt0120737 The Lord of the Rings: The Fellowship of the Ring
+tt0080684 Star Wars: Episode V - The Empire Strikes Back
+tt1375666 Inception
+tt0109830 Forrest Gump
+tt0073486 One Flew Over the Cuckoo's Nest
+tt0167261 The Lord of the Rings: The Two Towers
+tt0816692 Interstellar
+tt0099685 Goodfellas
+tt0133093 The Matrix
+tt0076759 Star Wars
+tt0047478 Shichinin no samurai
+tt0317248 City of God
+tt0114369 Se7en
+tt0114814 The Usual Suspects
+tt0102926 The Silence of the Lambs
+tt0038650 It's a Wonderful Life
+tt0064116 Once Upon a Time in the West
+tt0110413 LÃ©on
+tt0118799 La vita Ã¨ bella
+tt0034583 Casablanca
+tt0082971 Raiders of the Lost Ark
+tt0120586 American History X
+tt0120815 Saving Private Ryan
+tt0054215 Psycho
+tt0021749 City Lights
+tt0245429 Sen to Chihiro no Kamikakushi
+tt0047396 Rear Window
+tt1675434 The Intouchables
+tt0027977 Modern Times
+tt0103064 Terminator 2: Judgment Day
+tt0209144 Memento
+tt2582802 Whiplash
+tt0120689 The Green Mile
+tt0253474 The Pianist
+tt0043014 Sunset Blvd.
+tt0407887 The Departed
+tt0078788 Apocalypse Now
+tt0057012 Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb
+tt0172495 Gladiator
+tt0088763 Back to the Future
+tt0078748 Alien
+tt0482571 The Prestige
+tt0032553 The Great Dictator
+tt0405094 The Lives of Others
+tt0110357 The Lion King
+tt1853728 Django Unchained
+tt1345836 The Dark Knight Rises
+tt0095765 Nuovo Cinema Paradiso
+tt0081505 The Shining
+tt0050825 Paths of Glory
+tt0169547 American Beauty
+tt0910970 WALLÂ·E
+tt0053125 North by Northwest
+tt0090605 Aliens
+tt0033467 Citizen Kane
+tt0052357 Vertigo
+tt0211915 AmÃ©lie
+tt0022100 M
+tt0082096 Das Boot
+tt0095327 Hotaru no haka
+tt0435761 Toy Story 3
+tt0364569 Oldboy
+tt0119698 Mononoke-hime
+tt0086190 Star Wars: Episode VI - Return of the Jedi
+tt0087843 Once Upon a Time in America
+tt0066921 A Clockwork Orange
+tt0105236 Reservoir Dogs
+tt0075314 Taxi Driver
+tt0036775 Double Indemnity
+tt0112573 Braveheart
+tt0180093 Requiem for a Dream
+tt0056592 To Kill a Mockingbird
+tt0056172 Lawrence of Arabia
+tt0051201 Witness for the Prosecution
+tt0338013 Eternal Sunshine of the Spotless Mind
+tt0093058 Full Metal Jacket
+tt0045152 Singin' in the Rain
+tt0070735 The Sting
+tt0040522 Ladri di biciclette
+tt0086879 Amadeus
+tt0071853 Monty Python and the Holy Grail
+tt0208092 Snatch.
+tt2562232 Birdman
+tt0042876 RashÃ´mon
+tt0119488 L.A. Confidential
+tt0059578 Per qualche dollaro in piÃ¹
+tt0062622 2001: A Space Odyssey
+tt0053604 The Apartment
+tt0012349 The Kid
+tt0042192 All About Eve
+tt0053291 Some Like It Hot
+tt0361748 Inglourious Basterds
+tt0097576 Indiana Jones and the Last Crusade
+tt0040897 The Treasure of the Sierra Madre
+tt0041959 The Third Man
+tt1832382 Jodaeiye Nader az Simin
+tt0055630 YÃ´jinbÃ´
+tt0114709 Toy Story
+tt0372784 Batman Begins
+tt0017136 Metropolis
+tt0986264 Taare Zameen Par
+tt0105695 Unforgiven
+tt0086250 Scarface
+tt0081398 Raging Bull
+tt1049413 Up
+tt1065073 Boyhood
+tt0071315 Chinatown
+tt1187043 3 Idiots
+tt0057115 The Great Escape
+tt0363163 Downfall
+tt0095016 Die Hard
+tt0047296 On the Waterfront
+tt0031679 Mr. Smith Goes to Washington
+tt0457430 Pan's Labyrinth
+tt2106476 Jagten
+tt0113277 Heat
+tt2267998 Gone Girl
+tt0050212 The Bridge on the River Kwai
+tt0119217 Good Will Hunting
+tt0116231 Eskiya
+tt0096283 Tonari no Totoro
+tt0050976 Det sjunde inseglet
+tt0044741 Ikiru
+tt0015864 The Gold Rush
+tt0080678 The Elephant Man
+tt0993846 The Wolf of Wall Street
+tt0050986 SmultronstÃ¤llet
+tt0089881 Ran
+tt0083658 Blade Runner
+tt0017925 The General
+tt0120735 Lock, Stock and Two Smoking Barrels
+tt1305806 El secreto de sus ojos
+tt0112641 Casino
+tt1205489 Gran Torino
+tt0118715 The Big Lebowski
+tt1291584 Warrior
+tt0032976 Rebecca
+tt0434409 V for Vendetta
+tt0347149 Hauru no ugoku shiro
+tt0405508 Rang De Basanti
+tt0077416 The Deer Hunter
+tt0025316 It Happened One Night
+tt0061512 Cool Hand Luke
+tt0892769 How to Train Your Dragon
+tt0116282 Fargo
+tt0055031 Judgment at Nuremberg
+tt0117951 Trainspotting
+tt0031381 Gone with the Wind
+tt1979320 Rush
+tt0758758 Into the Wild
+tt0033870 The Maltese Falcon
+tt0268978 A Beautiful Mind
+tt0046912 Dial M for Murder
+tt0046268 The Wages of Fear
+tt0167404 The Sixth Sense
+tt0395169 Hotel Rwanda
+tt0084787 The Thing
+tt0266543 Finding Nemo
+tt0978762 Mary and Max
+tt0477348 No Country for Old Men
+tt0064115 Butch Cassidy and the Sundance Kid
+tt0266697 Kill Bill: Vol. 1
+tt0091763 Platoon
+tt0079470 Life of Brian
+tt2015381 Guardians of the Galaxy
+tt1255953 Incendies
+tt0292490 Dil Chahta Hai
+tt2024544 12 Years a Slave
+tt0074958 Network
+tt0052311 Touch of Evil
+tt0046911 Les diaboliques
+tt0075686 Annie Hall
+tt0093779 The Princess Bride
+tt0469494 There Will Be Blood
+tt2278388 The Grand Budapest Hotel
+tt0092005 Stand by Me
+tt0401792 Sin City
+tt0052618 Ben-Hur
+tt0053198 Les quatre cents coups
+tt0245712 Amores perros
+tt0107207 In the Name of the Father
+tt0405159 Million Dollar Baby
+tt0032551 The Grapes of Wrath
+tt0032138 The Wizard of Oz
+tt1028532 Hachi: A Dog's Tale
+tt0060827 Persona
+tt0036868 The Best Years of Our Lives
+tt0848228 The Avengers
+tt0087544 Kaze no tani no Naushika
+tt0440963 The Bourne Ultimatum
+tt0083987 Gandhi
+tt1954470 Gangs of Wasseypur
+tt0246578 Donnie Darko
+tt2084970 The Imitation Game
+tt0056801 8Â½
+tt0044079 Strangers on a Train
+tt0338564 Mou gaan dou
+tt0079944 Stalker
+tt0114746 Twelve Monkeys
+tt1877832 X-Men: Days of Future Past
+tt0073195 Jaws
+tt1130884 Shutter Island
+tt0044706 High Noon
+tt0169102 Lagaan: Once Upon a Time in India
+tt0038787 Notorious
+tt0088247 The Terminator
+tt1504320 The King's Speech
+tt0112471 Before Sunrise
+tt0083922 Fanny och Alexander
+tt0107048 Groundhog Day
+tt1201607 Harry Potter and the Deathly Hallows: Part 2
+tt1220719 Yip Man
+tt0058946 The Battle of Algiers
+tt0075148 Rocky
+tt0048424 The Night of the Hunter
+tt0072890 Dog Day Afternoon
+tt0198781 Monsters, Inc.
+tt0113247 La haine
+tt0353969 Salinui chueok
+tt0047528 La Strada
+tt0061184 Who's Afraid of Virginia Woolf?
+tt0325980 Pirates of the Caribbean: The Curse of the Black Pearl
+tt0072684 Barry Lyndon
+tt0058461 A Fistful of Dollars
+tt0092067 TenkÃ» no shiro Rapyuta
+tt0120382 The Truman Show
+tt0038355 The Big Sleep
+tt1454029 The Help
+tt0107290 Jurassic Park
+tt0046250 Roman Holiday
+tt0061722 The Graduate
+tt0054997 The Hustler
+tt0070511 Papillon
+tt0101414 Beauty and the Beast
+tt0118694 Fa yeung nin wa
+tt0154420 Festen
+tt1392214 Prisoners
+tt0040746 Rope
+tt0367110 Swades: We, the People
+tt0094625 Akira
