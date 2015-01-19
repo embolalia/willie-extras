@@ -3,7 +3,7 @@ tt0068646 The Godfather
 tt0071562 The Godfather: Part II
 tt0468569 The Dark Knight
 tt0110912 Pulp Fiction
-tt0060196 Il buono, il brutto, il cattivo.
+tt0060196 The Good, the Bad and the Ugly
 tt0050083 12 Angry Men
 tt0108052 Schindler's List
 tt0167260 The Lord of the Rings: The Return of the King
@@ -17,33 +17,33 @@ tt0167261 The Lord of the Rings: The Two Towers
 tt0816692 Interstellar
 tt0099685 Goodfellas
 tt0133093 The Matrix
-tt0076759 Star Wars
-tt0047478 Shichinin no samurai
+tt0076759 Star Wars: Episode IV - A New Hope
+tt0047478 Seven Samurai
 tt0317248 City of God
 tt0114369 Se7en
 tt0114814 The Usual Suspects
 tt0102926 The Silence of the Lambs
 tt0038650 It's a Wonderful Life
 tt0064116 Once Upon a Time in the West
-tt0110413 LÃ©on
-tt0118799 La vita Ã¨ bella
+tt0110413 LÃ©on: The Professional
+tt0118799 Life Is Beautiful
 tt0034583 Casablanca
 tt0082971 Raiders of the Lost Ark
 tt0120586 American History X
 tt0120815 Saving Private Ryan
 tt0054215 Psycho
 tt0021749 City Lights
-tt0245429 Sen to Chihiro no Kamikakushi
+tt0245429 Spirited Away
 tt0047396 Rear Window
 tt1675434 The Intouchables
 tt0027977 Modern Times
 tt0103064 Terminator 2: Judgment Day
-tt0209144 Memento
 tt2582802 Whiplash
+tt0209144 Memento
 tt0120689 The Green Mile
 tt0253474 The Pianist
-tt0043014 Sunset Blvd.
 tt0407887 The Departed
+tt0043014 Sunset Blvd.
 tt0078788 Apocalypse Now
 tt0057012 Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb
 tt0172495 Gladiator
@@ -55,7 +55,7 @@ tt0405094 The Lives of Others
 tt0110357 The Lion King
 tt1853728 Django Unchained
 tt1345836 The Dark Knight Rises
-tt0095765 Nuovo Cinema Paradiso
+tt0095765 Cinema Paradiso
 tt0081505 The Shining
 tt0050825 Paths of Glory
 tt0169547 American Beauty
@@ -67,10 +67,10 @@ tt0052357 Vertigo
 tt0211915 AmÃ©lie
 tt0022100 M
 tt0082096 Das Boot
-tt0095327 Hotaru no haka
+tt0095327 Grave of the Fireflies
 tt0435761 Toy Story 3
 tt0364569 Oldboy
-tt0119698 Mononoke-hime
+tt0119698 Princess Mononoke
 tt0086190 Star Wars: Episode VI - Return of the Jedi
 tt0087843 Once Upon a Time in America
 tt0066921 A Clockwork Orange
@@ -86,14 +86,14 @@ tt0338013 Eternal Sunshine of the Spotless Mind
 tt0093058 Full Metal Jacket
 tt0045152 Singin' in the Rain
 tt0070735 The Sting
-tt0040522 Ladri di biciclette
+tt0040522 Bicycle Thieves
 tt0086879 Amadeus
 tt0071853 Monty Python and the Holy Grail
 tt0208092 Snatch.
-tt2562232 Birdman
-tt0042876 RashÃ´mon
+tt0042876 Rashomon
 tt0119488 L.A. Confidential
-tt0059578 Per qualche dollaro in piÃ¹
+tt0059578 For a Few Dollars More
+tt2562232 Birdman
 tt0062622 2001: A Space Odyssey
 tt0053604 The Apartment
 tt0012349 The Kid
@@ -103,50 +103,51 @@ tt0361748 Inglourious Basterds
 tt0097576 Indiana Jones and the Last Crusade
 tt0040897 The Treasure of the Sierra Madre
 tt0041959 The Third Man
-tt1832382 Jodaeiye Nader az Simin
-tt0055630 YÃ´jinbÃ´
+tt1832382 A Separation
+tt0055630 Yojimbo
 tt0114709 Toy Story
 tt0372784 Batman Begins
 tt0017136 Metropolis
-tt0986264 Taare Zameen Par
+tt0986264 Like Stars on Earth
 tt0105695 Unforgiven
 tt0086250 Scarface
 tt0081398 Raging Bull
 tt1049413 Up
-tt1065073 Boyhood
 tt0071315 Chinatown
 tt1187043 3 Idiots
+tt1065073 Boyhood
 tt0057115 The Great Escape
 tt0363163 Downfall
 tt0095016 Die Hard
 tt0047296 On the Waterfront
-tt0031679 Mr. Smith Goes to Washington
 tt0457430 Pan's Labyrinth
-tt2106476 Jagten
+tt0031679 Mr. Smith Goes to Washington
+tt2106476 The Hunt
+tt2592910 CM101MMXI Fundamentals
 tt0113277 Heat
 tt2267998 Gone Girl
 tt0050212 The Bridge on the River Kwai
 tt0119217 Good Will Hunting
-tt0116231 Eskiya
-tt0096283 Tonari no Totoro
-tt0050976 Det sjunde inseglet
+tt0116231 The Bandit
+tt0096283 My Neighbor Totoro
+tt0050976 The Seventh Seal
 tt0044741 Ikiru
 tt0015864 The Gold Rush
 tt0080678 The Elephant Man
 tt0993846 The Wolf of Wall Street
-tt0050986 SmultronstÃ¤llet
+tt0050986 Wild Strawberries
 tt0089881 Ran
 tt0083658 Blade Runner
 tt0017925 The General
 tt0120735 Lock, Stock and Two Smoking Barrels
-tt1305806 El secreto de sus ojos
+tt1305806 The Secret in Their Eyes
 tt0112641 Casino
 tt1205489 Gran Torino
 tt0118715 The Big Lebowski
 tt1291584 Warrior
 tt0032976 Rebecca
 tt0434409 V for Vendetta
-tt0347149 Hauru no ugoku shiro
+tt0347149 Howl's Moving Castle
 tt0405508 Rang De Basanti
 tt0077416 The Deer Hunter
 tt0025316 It Happened One Night
@@ -172,13 +173,13 @@ tt0064115 Butch Cassidy and the Sundance Kid
 tt0266697 Kill Bill: Vol. 1
 tt0091763 Platoon
 tt0079470 Life of Brian
-tt2015381 Guardians of the Galaxy
 tt1255953 Incendies
+tt2015381 Guardians of the Galaxy
 tt0292490 Dil Chahta Hai
 tt2024544 12 Years a Slave
 tt0074958 Network
 tt0052311 Touch of Evil
-tt0046911 Les diaboliques
+tt0046911 Diabolique
 tt0075686 Annie Hall
 tt0093779 The Princess Bride
 tt0469494 There Will Be Blood
@@ -186,8 +187,8 @@ tt2278388 The Grand Budapest Hotel
 tt0092005 Stand by Me
 tt0401792 Sin City
 tt0052618 Ben-Hur
-tt0053198 Les quatre cents coups
-tt0245712 Amores perros
+tt0053198 The 400 Blows
+tt0245712 Amores Perros
 tt0107207 In the Name of the Father
 tt0405159 Million Dollar Baby
 tt0032551 The Grapes of Wrath
@@ -196,43 +197,43 @@ tt1028532 Hachi: A Dog's Tale
 tt0060827 Persona
 tt0036868 The Best Years of Our Lives
 tt0848228 The Avengers
-tt0087544 Kaze no tani no Naushika
+tt0087544 NausicaÃ¤ of the Valley of the Wind
 tt0440963 The Bourne Ultimatum
 tt0083987 Gandhi
-tt1954470 Gangs of Wasseypur
-tt0246578 Donnie Darko
 tt2084970 The Imitation Game
+tt0246578 Donnie Darko
+tt1954470 Gangs of Wasseypur
 tt0056801 8Â½
 tt0044079 Strangers on a Train
-tt0338564 Mou gaan dou
+tt0338564 Infernal Affairs
 tt0079944 Stalker
 tt0114746 Twelve Monkeys
-tt1877832 X-Men: Days of Future Past
 tt0073195 Jaws
+tt1877832 X-Men: Days of Future Past
 tt1130884 Shutter Island
 tt0044706 High Noon
 tt0169102 Lagaan: Once Upon a Time in India
 tt0038787 Notorious
 tt0088247 The Terminator
-tt1504320 The King's Speech
 tt0112471 Before Sunrise
-tt0083922 Fanny och Alexander
+tt1504320 The King's Speech
 tt0107048 Groundhog Day
 tt1201607 Harry Potter and the Deathly Hallows: Part 2
-tt1220719 Yip Man
+tt0083922 Fanny and Alexander
+tt1220719 Ip Man
 tt0058946 The Battle of Algiers
 tt0075148 Rocky
 tt0048424 The Night of the Hunter
 tt0072890 Dog Day Afternoon
 tt0198781 Monsters, Inc.
-tt0113247 La haine
-tt0353969 Salinui chueok
+tt0113247 La Haine
+tt0353969 Memories of Murder
 tt0047528 La Strada
-tt0061184 Who's Afraid of Virginia Woolf?
 tt0325980 Pirates of the Caribbean: The Curse of the Black Pearl
+tt0061184 Who's Afraid of Virginia Woolf?
 tt0072684 Barry Lyndon
 tt0058461 A Fistful of Dollars
-tt0092067 TenkÃ» no shiro Rapyuta
+tt0092067 Castle in the Sky
 tt0120382 The Truman Show
 tt0038355 The Big Sleep
 tt1454029 The Help
@@ -242,9 +243,8 @@ tt0061722 The Graduate
 tt0054997 The Hustler
 tt0070511 Papillon
 tt0101414 Beauty and the Beast
-tt0118694 Fa yeung nin wa
-tt0154420 Festen
+tt0118694 In the Mood for Love
+tt0154420 The Celebration
 tt1392214 Prisoners
+tt0367110 Swades
 tt0040746 Rope
-tt0367110 Swades: We, the People
-tt0094625 Akira
