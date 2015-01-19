@@ -65,6 +65,7 @@ class quote_game():
         if self.current_movie is not None:
             self.bot.msg(self.room, "Correct answer was "
                    "%s."%self.current_movie.title)
+            time.sleep(5)
         self.next_phase = time.time() + PHASE_LENGTH
         self.phase = 0
         self.current_movie = random.choice(self.movies)
@@ -89,7 +90,7 @@ class quote_game():
                     # Allows more than one person to get it right
                     # provided they wrote it in the last second with the
                     # other person. But only the first gets points.
-                    bot.say("DEBUG: checking %s"%guess.guess)
+                    #bot.say("DEBUG: checking %s"%guess.guess)
                     if guess.guess == self.current_movie.title:
                         bot.say("Correct, %s"%guess.nick)
                         if not go_next:
@@ -127,9 +128,9 @@ class quote_game():
     def stop_game(self):
         self.is_running = False
         self.t.join()
-
-
-
+        self.current_movie = None
+        self.next_phase= 0
+        self.phase = 0
 
 @willie.module.commands('trivstart')
 def start(bot, trigger):
@@ -150,7 +151,7 @@ def guess(bot, trigger):
     """ Make a guess at the answer to the movie trivia """
     if (trigger.sender in GAMES and GAMES[trigger.sender].is_running
             and trigger.group(2)):
-        bot.say("DEBUG: >%s< guesses >%s<"%(trigger.nick, trigger.group(2)))
+        #bot.say("DEBUG: >%s< guesses >%s<"%(trigger.nick, trigger.group(2)))
         GAMES[trigger.sender].make_guess(trigger.nick,trigger.group(2))
 
 @willie.module.commands('trivstop')
