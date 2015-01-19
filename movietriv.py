@@ -9,6 +9,10 @@ import Queue
 SCORES = {}
 PHASE_LENGTH = 30
 
+def configure(config):
+    config.add_option('movietriv', 'movielist_file', 
+        'location of imdb_ids and titles')
+
 class movie():
     def __init__(self, title, imdb_id):
         self.title = title.lower()
@@ -46,6 +50,7 @@ class quote_game():
         self.room = room
         self.next_phase= 0
         self.phase = 0
+        self.load_file(bot.config.movietriv.movielist_file)
     def add_movie(self, title, imdb_id):
         self.movies.append(movie(title, imdb_id))
     def give_points(self, nick):
