@@ -537,16 +537,11 @@ def say_fact(bot, trigger):
     if cmdprefix.search(query) is not None:
         return
 
-    # Check if our nick was mentioned
-    addressed = query.lower().startswith(bot.nick.lower())
-    addressed |= query.lower().endswith(bot.nick.lower())
+    addressed = query.lower().startswith(bot.nick.lower())  # Check if our nick was mentioned
     search_term = query.lower().strip()
 
-    # Remove our nickname from the search term
-    if search_term.startswith(bot.nick.lower()):
-        search_term = search_term[(len(bot.nick) + 1):].strip()
-    elif search_term.endswith(bot.nick.lower()):
-        search_term = search_term[:-len(bot.nick)].strip()
+    if addressed:
+        search_term = search_term[(len(bot.nick) + 1):].strip()  # Remove our nickname from the search term
     search_term = remove_punctuation(search_term).strip()
     try:    # strip mIRC control codes
         search_term = re.sub(r"\x1f|\x02|\x12|\x0f|\x16|\x03(?:\d{1,2}(?:,\d{1,2})?)?", '', search_term)
