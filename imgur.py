@@ -8,8 +8,13 @@ Licensed under the Eiffel Forum License 2.
 import json
 import re
 import os.path
-from urllib2 import HTTPError
-from urlparse import urlparse
+import sys
+if sys.version_info.major < 3:
+    from urllib2 import HTTPError
+    from urlparse import urlparse
+else:
+    from urllib.request import HTTPError
+    from urllib.parse import urlparse
 from willie.config import ConfigurationError
 from willie import web, tools
 from willie.module import rule
@@ -53,7 +58,7 @@ def configure(config):
     """
 
     if config.option('Configure Imgur? (You will need to register at https://api.imgur.com/oauth2/addclient)', False):
-        config.interactive.add('imgur', 'client_id', 'Client ID')
+        config.interactive_add('imgur', 'client_id', 'Client ID')
 
 def setup(bot):
     """
