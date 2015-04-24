@@ -5,6 +5,7 @@ Licensed under the Eiffel Forum License 2.
 
 http://willie.dftba.net/
 """
+from __future__ import print_function
 from willie.module import rule, event, commands
 from collections import deque
 
@@ -18,7 +19,11 @@ def configure(config):
     | -------- | ------- | ------- |
     | channel | #help | Enter the channel HelpBot should moderate |
     """
-    config.interactive_add('helpbot', 'channel', "Enter the channel HelpBot should moderate", '#help')
+    config.interactive_add('helpbot', 'channel', "Enter the channel HelpBot should moderate", None)
+
+def setup(bot):
+    if not bot.config.helpbot.channel:
+        raise ConfigurationError('Helpbot module not configured')
 
 @event('JOIN')
 @rule(r'.*')
@@ -31,10 +36,19 @@ def addNewHelpee(bot, trigger):
         return
     helpees.append({'nick': trigger.nick, 'request': None, 'active': False, 'skipped': False})
     try:
-        bot.reply('Welcome to '+str(trigger)+'. Please PM '+bot.nick+' with your help request, prefixed with \'.request\' (Example: /msg '+bot.nick+' .request I lost my password.) Don\'t include any private information with your question (passwords etc), as the question will be posted in this channel')
+        bot.reply('Welcome to '+trigger.sender+'. Please PM '+bot.nick+' with your help request, prefixed with \'.request\' (Example: /msg '+bot.nick+' .request I lost my password.) Don\'t include any private information with your question (passwords etc), as the question will be posted in this channel')
     except AttributeError:
         bot.debug('Help','You\'re running a module requiring configuration, without having configured it.','warning')
         return
+
+@event('NICK')
+@rule(r'.*')
+def helpeeRename(bot, trigger):
+    """ Update the list when somebody changes nickname. """
+    for h in helpees:
+        if h['nick'] == trigger.nick:
+            h['nick'] = trigger.args[0]
+            return
 
 @event('QUIT')
 @rule(r'.*')
@@ -110,4 +124,4 @@ def next(bot, trigger):
         bot.write(['MODE', bot.config.helpbot.channel, '+v', helpee['nick']])
 
 if __name__ == '__main__':
-    print __doc__.strip()
+    print(__doc__.strip())

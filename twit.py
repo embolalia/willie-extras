@@ -6,12 +6,16 @@ Licensed under the Eiffel Forum License 2.
 
 http://willie.dftba.net
 """
+from __future__ import print_function
 import tweepy
 import time
 import re
 from willie.config import ConfigurationError
 from willie import tools
 from willie.module import rule
+import sys
+if sys.version_info.major < 3:
+    str = unicode
 
 def configure(config):
     """
@@ -77,7 +81,7 @@ def gettweet(willie, trigger, found_match=None):
                     statusnum = int(parts[1]) - 1
                 status = api.user_timeline(twituser)[statusnum]
         twituser = '@' + status.user.screen_name
-        willie.say(twituser + ": " + unicode(status.text) + ' <' + tweet_url(status) + '>')
+        willie.say(twituser + ": " + str(status.text) + ' <' + tweet_url(status) + '>')
     except:
         willie.reply("You have inputted an invalid user.")
 gettweet.commands = ['twit']
@@ -118,7 +122,7 @@ def f_update(willie, trigger):
         auth.set_access_token(willie.config.twitter.access_token, willie.config.twitter.access_token_secret)
         api = tweepy.API(auth)
 
-        print api.me().name
+        print(api.me().name)
 
         update = str(trigger.group(2)) + " ^" + trigger.nick
         if len(update) <= 140:
@@ -155,4 +159,4 @@ f_reply.priority = 'medium'
 f_reply.example = '.reply 892379487 I like that idea!'
 
 if __name__ == '__main__':
-    print __doc__.strip()
+    print(__doc__.strip())

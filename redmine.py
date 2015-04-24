@@ -8,8 +8,14 @@ This module will respond to Redmine commands.
 """
 
 from collections import OrderedDict
-from HTMLParser import HTMLParser
-from urllib import urlencode, quote
+try:
+    from HTMLParser import HTMLParser
+except ImportError: # py3
+    import html.parser as HTMLParser
+try:
+    from urllib import urlencode, quote
+except ImportError: # py3
+    from urllib.parse import urlencode, quote
 from willie import web, tools
 from willie.module import rule, commands, example
 import dateutil.parser
@@ -28,8 +34,11 @@ def configure(config):
     | base_url  | https://example.org/redmine/ | Base URL for your Redmine installation |
     | api_access_key | 8843d7f92416211de9ebb963ff4ce28125932878 | Your Redmine API access key |
     """
-    config.interactive_add('redmine', 'base_url', 'Base URL')
-    config.interactive_add('redmine', 'api_access_key', 'API Access Key')
+    if config.option('Configure Redmine?', False):
+        if not config.has_section('redmine'):
+            config.add_section('redmine')
+        config.interactive_add('redmine', 'base_url', 'Redmine Base URL')
+        config.interactive_add('redmine', 'api_access_key', 'API Access Key')
 
 
 def setup(bot):
