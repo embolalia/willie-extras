@@ -26,7 +26,7 @@ https://github.com/bookieio/Bookie/blob/develop/docs/api/user.rst
 """
 from __future__ import unicode_literals
 
-from willie import web, tools
+from willie import web, tools, logger
 from willie.module import commands, rule, example
 from willie.modules.url import get_hostname, url_finder, exclusion_char, title_tag_data, quoted_title, re_dcc
 from willie.config import ConfigurationError
@@ -59,6 +59,8 @@ api_user = None
 api_key = None
 api_suffix = '/api/v1/'
 api_private = None
+
+log = logger.get_logger(__name__)
 
 def text(html):
     '''html to text dumb converter
@@ -242,12 +244,12 @@ def api(bot, trigger, func, data=None):
             key = match.group(2)
             data['is_private'] = int(validate_private(match.group(3)))
     api = '%s%s/bmark?api_key=%s' % ( api_url, user, key )
-    bot.debug('bookie', 'submitting to %s data %s' % (api, data), 'verbose')
+    log.debug('bookie', 'submitting to %s data %s' % (api, data), 'verbose')
     # we use requests instead of web.post because Bookie expects
     # JSON-encoded submissions, which web.post doesn't support
     r = requests.post(api, data)
     r.headers['_http_status'] = r.status_code
-    bot.debug('bookie', 'response: %s (headers: %s, body: %s)' % (r, r.text, r.headers), 'verbose')
+    log.debug('bookie', 'response: %s (headers: %s, body: %s)' % (r, r.text, r.headers), 'verbose')
     return (r.text, r.headers)
 
 def api_bmark(bot, trigger, found_match=None, extra=None):
