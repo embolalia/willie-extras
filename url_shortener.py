@@ -1,10 +1,11 @@
 # coding=utf8
 """
-url.py - Willie URL title module
+url_shortener.py - Willie URL shortener module
 Copyright 2010-2011, Michael Yanovich, yanovich.net, Kenneth Sham
 Copyright 2012-2013 Edward Powell
 Copyright 2013      Lior Ramati (firerogue517@gmail.com)
 Copyright © 2014 Elad Alfassa <elad@fedoraproject.org>
+Copyright © 2015 Matias Wilkman
 Licensed under the Eiffel Forum License 2.
 
 http://willie.dftba.net
@@ -98,8 +99,7 @@ def setup(bot=None):
 @example('.shorten http://google.com', 'http://dy.fi/dpm')
 def title_command(bot, trigger):
     """
-    Show the title or URL information for the given URL, or the last URL seen
-    in this channel.
+	Give a short URL for the seen URL
     """
     if not trigger.group(2):
         if trigger.sender not in bot.memory['last_seen_url']:
