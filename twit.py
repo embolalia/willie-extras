@@ -22,6 +22,10 @@ unescape = html.unescape
 import sys
 if sys.version_info.major < 3:
     str = unicode
+try:
+    tools.SopelMemory
+except:
+    tools.SopelMemory = tools.WillieMemory
 
 def configure(config):
     """
