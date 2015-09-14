@@ -85,7 +85,7 @@ def love(bot, trigger):
     bot.reply("I love you too.")
 
 
-@rule('\s*([Xx]+[dD]+|(\b[Bb]*[Ww]*[Aa]*[HhAa]+\b)+)')
+@rule('\s*([Xx]+[dD]+|(\b[Bb]*[Ww]*[Aa]*[Hh]+[Aa]+[HhAa]+\b)+)')
 @rate(30)
 def xd(bot, trigger):
     if decide(bot):
