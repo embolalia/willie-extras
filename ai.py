@@ -88,10 +88,11 @@ def love(bot, trigger):
 @rule('\s*([Xx]+[dD]+|(\b[Bb]*[Ww]*[Aa]*[HhAa]+\b)+)')
 @rate(30)
 def xd(bot, trigger):
-    respond = ['xDDDDD', 'XD', 'XDDDD', 'haha']
-    randtime = random.uniform(0, 3)
-    time.sleep(randtime)
-    bot.say(random.choice(respond))
+    if decide(bot):
+        respond = ['xDDDDD', 'XD', 'XDDDD', 'haha']
+        randtime = random.uniform(0, 3)
+        time.sleep(randtime)
+        bot.say(random.choice(respond))
 
 
 @rule('(haha!?|lol!?)$')
@@ -107,20 +108,22 @@ def f_lol(bot, trigger):
 @rule('^\s*(([Bb]+([Yy]+[Ee]+(\s*[Bb]+[Yy]+[Ee]+)?)|[Ss]+[Ee]{2,}\s*[Yy]+[Aa]+|[Oo]+[Uu]+)|cya|ttyl|[Gg](2[Gg]|[Tt][Gg]|([Oo]{2,}[Dd]+\s*([Bb]+[Yy]+[Ee]+|[Nn]+[Ii]+[Gg]+[Hh]+[Tt]+)))\s*(!|~|.)*)$')
 @priority('high')
 def f_bye(bot, trigger):
-    set1 = ['bye', 'byebye', 'see you', 'see ya', 'Good bye', 'have a nice day']
-    set2 = ['~', '~~~', '!', ' :)', ':D', '(Y)', '(y)', ':P', ':-D', ';)', '(wave)', '(flee)']
-    respond = [ str1 + ' ' + str2 for str1 in set1 for str2 in set2]
-    bot.say(random.choice(respond))
+    if decide(bot):
+        set1 = ['bye', 'byebye', 'see you', 'see ya', 'Good bye', 'have a nice day']
+        set2 = ['~', '~~~', '!', ' :)', ':D', '(Y)', '(y)', ':P', ':-D', ';)', '(wave)', '(flee)']
+        respond = [ str1 + ' ' + str2 for str1 in set1 for str2 in set2]
+        bot.say(random.choice(respond))
 
 @rule('^\s*(([Hh]+([AaEe]+[Ll]+[Oo]+|[Ii]+)+\s*(all)?)|[Yy]+[Oo]+|[Aa]+[Ll]+|[Aa]nybody)\s*(!+|\?+|~+|.+|[:;][)DPp]+)*$')
 @priority('high')
 def f_hello(bot, trigger):
-    randtime = random.uniform(0, 7)
-    time.sleep(randtime)
-    set1 = ['yo', 'hey', 'hi', 'Hi', 'hello', 'Hello', 'Welcome']
-    set2 = ['~', '~~~', '!', '?', ' :)', ':D', 'xD', '(Y)', '(y)', ':P', ':-D', ';)', ', How do you do?']
-    respond = [ str1 + ' ' + str2 for str1 in set1 for str2 in set2]
-    bot.say(random.choice(respond))
+    if decide(bot):
+        randtime = random.uniform(0, 7)
+        time.sleep(randtime)
+        set1 = ['yo', 'hey', 'hi', 'Hi', 'hello', 'Hello', 'Welcome']
+        set2 = ['~', '~~~', '!', '?', ' :)', ':D', 'xD', '(Y)', '(y)', ':P', ':-D', ';)', ', How do you do?']
+        respond = [ str1 + ' ' + str2 for str1 in set1 for str2 in set2]
+        bot.say(random.choice(respond))
 
 
 @rule('(heh!?)$')
