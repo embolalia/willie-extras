@@ -85,7 +85,7 @@ def love(bot, trigger):
     bot.reply("I love you too.")
 
 
-@rule('\s*([Xx]+[dD]+|(\b[Bb]*[Ww]*[Aa]*[Hh]+[Aa]+[HhAa]+\b)+)')
+@rule(r'\b([Xx]+[dD]+|(\b[Bb]*[Ww]*[Aa]*[Hh]+[Aa]+[HhAa]+\b)+)')
 @rate(30)
 def xd(bot, trigger):
     if decide(bot):
@@ -114,7 +114,7 @@ def f_bye(bot, trigger):
         respond = [ str1 + ' ' + str2 for str1 in set1 for str2 in set2]
         bot.say(random.choice(respond))
 
-@rule('^\s*(([Hh]+([AaEe]+[Ll]+[Oo]+|[Ii]+)+\s*(all)?)|[Yy]+[Oo]+|[Aa]+[Ll]+|[Aa]nybody)\s*(!+|\?+|~+|.+|[:;][)DPp]+)*$')
+@rule(r'^\s*(([Hh]+([AaEe]+[Ll]+[Oo]+|[Ii]+)+\s*(all)?)|[Yy]+[Oo]+\b|[Aa]+[Ll]+|[Aa]nybody)\s*(!+|\?+|~+|.+|[:;][)DPp]+)*$')
 @priority('high')
 def f_hello(bot, trigger):
     if decide(bot):
