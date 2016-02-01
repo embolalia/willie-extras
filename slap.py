@@ -33,7 +33,7 @@ def slap(sopel, trigger):
             text[1] = trigger.nick
         else:
             text[1] = 'herself'
-    if text[1] in sopel.config.admins:
+    if text[1] in sopel.config.core.admins:
         if (trigger.nick not in sopel.config.core.admins):
             text[1] = trigger.nick
     verb = random.choice(('slaps', 'kicks', 'destroys', 'annihilates', 'punches', 'roundhouse kicks', 'pwns', 'owns', 'backstabs'))
