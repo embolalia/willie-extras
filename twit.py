@@ -12,7 +12,7 @@ import time
 import re
 from sopel.config import ConfigurationError
 from sopel import tools
-from sopel.module import rule
+from sopel.module import commands, example, priority, rule
 try:
     import html
 except ImportError:
@@ -70,6 +70,9 @@ def tweet_url(status):
     return 'https://twitter.com/' + status.user.screen_name + '/status/' + status.id_str
 
 @rule('.*twitter.com\/(\S*)\/status\/([\d]+).*')
+@commands('twit')
+@priority('medium')
+@example('.twit aplusk [tweetNum] or .twit 381982018927853568')
 def gettweet(sopel, trigger, found_match=None):
     """Show the last tweet by the given user"""
     try:
@@ -105,10 +108,10 @@ def gettweet(sopel, trigger, found_match=None):
         sopel.say(twituser + ": " + unescape(status.text) + ' <' + tweet_url(status) + '>')
     except:
         sopel.reply("You have inputted an invalid user.")
-gettweet.commands = ['twit']
-gettweet.priority = 'medium'
-gettweet.example = '.twit aplusk [tweetNum] or .twit 381982018927853568'
 
+@commands('twitinfo')
+@priority('medium')
+@example('.twitinfo aplusk')
 def f_info(sopel, trigger):
     """Show information about the given Twitter account"""
     try:
@@ -132,10 +135,10 @@ def f_info(sopel, trigger):
         sopel.reply("@" + str(twituser) + ": " + str(name) + ". " + "ID: " + str(id) + ". Friend Count: " + friendcount + ". Followers: " + followers + ". Favourites: " + str(favourites) + ". Location: " + str(location) + ". Description: " + str(description))
     except:
         sopel.reply("You have inputted an invalid user.")
-f_info.commands = ['twitinfo']
-f_info.priority = 'medium'
-f_info.example = '.twitinfo aplsuk'
 
+@commands('tweet')
+@priority('medium')
+@example('.tweet Hello World!')
 def f_update(sopel, trigger):
     """Tweet with Sopel's account. Admin-only."""
     if trigger.admin:
@@ -152,10 +155,10 @@ def f_update(sopel, trigger):
         else:
             toofar = len(update) - 140
             sopel.reply("Please shorten the length of your message by: " + str(toofar) + " characters.")
-f_update.commands = ['tweet']
-f_update.priority = 'medium'
-f_update.example = '.tweet Hello World!'
 
+#@commands('reply')
+@priority('medium')
+@example('.reply 892379487 I like that idea!')
 def f_reply(sopel, trigger):
     auth = tweepy.OAuthHandler(sopel.config.twitter.consumer_key, sopel.config.twitter.consumer_secret)
     auth.set_access_token(sopel.config.twitter.access_token, sopel.config.twitter.access_token_secret)
@@ -175,9 +178,6 @@ def f_reply(sopel, trigger):
             sopel.reply("Please shorten the length of your message by: " + str(toofar) + " characters.")
     else:
         sopel.reply("Please provide a status ID.")
-#f_reply.commands = ['reply']
-f_reply.priority = 'medium'
-f_reply.example = '.reply 892379487 I like that idea!'
 
 if __name__ == '__main__':
     print(__doc__.strip())
