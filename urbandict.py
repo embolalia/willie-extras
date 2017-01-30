@@ -1,5 +1,4 @@
 # coding=utf-8
-#!/usr/bin/python3
 """
 urbandict.py - urban dictionary module
 much cleaner, TODO bring random urban back
