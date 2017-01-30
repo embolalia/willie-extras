@@ -5,7 +5,6 @@ much cleaner, TODO bring random urban back
 """
  
 from sopel.module import commands, example
-from sopel.module import commands, example
 import sopel.web as web
 import json
 import sopel
@@ -37,3 +36,4 @@ def urbandict(bot, trigger):
  
 if __name__ == '__main__':
     print(__doc__.strip())
+  
