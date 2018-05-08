@@ -178,7 +178,7 @@ def title_auto(bot, trigger):
     into it.
 
     """
-    if re.match(bot.config.core.prefix + 'bmark', trigger):
+    if re.match(bot.config.core.prefix + 'bmark', trigger) or not bot.config.bookie.auto:
         return
 
     # Avoid fetching known malicious links
